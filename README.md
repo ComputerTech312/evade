@@ -1,3 +1,6 @@
+![linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![mac](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)
+
 # Evade
 
 Evade is a simple and fun game built with Python and Pygame. The goal of the game is to avoid the red blocks while controlling a white square. You can also collect green power-ups to shrink your size and make the game easier.
@@ -7,7 +10,8 @@ Evade is a simple and fun game built with Python and Pygame. The goal of the gam
 Before you begin, ensure you have met the following requirements:
 
 * You have installed the latest version of Python3.
-* You have a Linux machine. This code may work on Windows or Mac machines, but it's not guaranteed.
+* You have a Linux or Mac machine. This code may work on Windows machines, but
+  it's not guaranteed.
 
 ![Evade Game Preview](./preview.png)
 
@@ -46,3 +50,14 @@ To run Evade, follow these steps:
 
 ```bash
 python3 evade.py
+```
+
+### Game Controls
+
+||key|mouse|
+|-|-|-|
+|start new  game| ↑ | click `Start` button|
+|move left|←|||
+|move right|→|||
+|move up|↑|||
+|move down|↓|||
