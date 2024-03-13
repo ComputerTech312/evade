@@ -9,6 +9,8 @@ Before you begin, ensure you have met the following requirements:
 * You have installed the latest version of Python3.
 * You have a Linux machine. This code may work on Windows or Mac machines, but it's not guaranteed.
 
+![Evade Game Preview](./preview.png)
+
 ## Installing Evade
 
 To install Evade, follow these steps:
