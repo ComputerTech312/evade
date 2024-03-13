@@ -1,4 +1,4 @@
-# Evade Game
+# Evade
 
 Evade is a simple and fun game built with Python and Pygame. The goal of the game is to avoid the red blocks while controlling a white square. You can also collect green power-ups to shrink your size and make the game easier.
 
