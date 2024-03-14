@@ -22,12 +22,17 @@ POWERUP_SPAWN = pygame.USEREVENT + 1
 class Score():
     def __init__(self):
         self._current = 0
+        self._initial_time = time.time()
 
     def reset(self):
         self._current = 0
+        self._initial_time = time.time()
 
-    def increase(self, increment = 5):
-        self._current += increment
+    def update(self, current_time, increment = 5):
+        elapsed_time = current_time - self._initial_time
+        if elapsed_time >= 3:
+            self._current += increment
+            self._initial_time = current_time
 
     def score(self):
         return str(self._current)
@@ -192,6 +197,7 @@ while running:
                 running = False
                 break
             if event.type == pygame.KEYDOWN:
+                score.update(time.time())
                 if event.key == pygame.K_p:  # Pause the game when the "P" key is pressed
                     pause_menu()
             if event.type == pygame.USEREVENT:
@@ -200,9 +206,6 @@ while running:
                 p = PowerUp()
                 all_sprites.add(p)
                 powerups.add(p)
-
-            if (time.time() - initial_time > 3) and event.type == pygame.KEYDOWN:
-                score.increase()
 
         all_sprites.update()
 
