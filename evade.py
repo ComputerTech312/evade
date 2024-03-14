@@ -1,5 +1,5 @@
 import pygame
-import random
+import random, time
 
 # Game settings
 WIDTH = 480
@@ -19,6 +19,19 @@ clock = pygame.time.Clock()
 # Define a new event type for spawning PowerUps
 POWERUP_SPAWN = pygame.USEREVENT + 1
 
+class Score():
+    def __init__(self):
+        self._current = 0
+
+    def reset(self):
+        self._current = 0
+
+    def increase(self, increment = 5):
+        self._current += increment
+
+    def score(self):
+        return str(self._current)
+    
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -98,6 +111,7 @@ class PowerUp(pygame.sprite.Sprite):
             self.speedy = random.randrange(1, 8)
 
 def main_menu():
+    score.reset()
     menu_font = pygame.font.Font(None, 50)
     start_button = pygame.Rect(WIDTH / 2 - 70, HEIGHT / 2 - 20, 140, 40)  # Define a button area
     while True:
@@ -143,10 +157,18 @@ def pause_menu():
             if event.type == pygame.KEYDOWN:  # Check for key press
                 if event.key == pygame.K_p:  # Check if "P" key is pressed
                     return
+                
+def draw_score(score):
+    font = pygame.font.SysFont(None, 36)
+    score_surface = font.render("Score: " + str(score), True, WHITE)
+    screen.blit(score_surface, (10, 10))
+
+score = Score()
 
 # Game loop
 running = True
 while running:
+    initial_time = time.time()
     all_sprites = pygame.sprite.Group()
     blocks = pygame.sprite.Group()
     powerups = pygame.sprite.Group()
@@ -179,6 +201,9 @@ while running:
                 all_sprites.add(p)
                 powerups.add(p)
 
+            if (time.time() - initial_time > 3) and event.type == pygame.KEYDOWN:
+                score.increase()
+
         all_sprites.update()
 
         hits = pygame.sprite.spritecollide(player, blocks, False)
@@ -192,6 +217,7 @@ while running:
 
         screen.fill((0, 0, 0))
         all_sprites.draw(screen)
+        draw_score(score=score.score())
         pygame.display.flip()
 
     if not running:
