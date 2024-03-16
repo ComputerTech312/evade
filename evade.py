@@ -163,12 +163,16 @@ def pause_menu():
                 if event.key == pygame.K_p:  # Check if "P" key is pressed
                     return
                 
-def draw_score(score):
-    font = pygame.font.SysFont(None, 36)
-    score_surface = font.render("Score: " + str(score), True, WHITE)
-    screen.blit(score_surface, (10, 10))
+# Add a new parameter to the draw_score function
+def draw_score(score, show_score):
+    if show_score:
+        font = pygame.font.SysFont(None, 36)
+        score_surface = font.render("Score: " + str(score), True, WHITE)
+        screen.blit(score_surface, (10, 10))
 
 score = Score()
+# Initialize the show_score variable
+show_score = True
 
 # Game loop
 running = True
@@ -200,6 +204,9 @@ while running:
                 score.update(time.time())
                 if event.key == pygame.K_p:  # Pause the game when the "P" key is pressed
                     pause_menu()
+                # Add a new key event to toggle the show_score variable
+                if event.key == pygame.K_s:  # Toggle score display when the "S" key is pressed
+                    show_score = not show_score
             if event.type == pygame.USEREVENT:
                 player.reset_size()
             if event.type == POWERUP_SPAWN:  # Spawn a new PowerUp
@@ -220,7 +227,8 @@ while running:
 
         screen.fill((0, 0, 0))
         all_sprites.draw(screen)
-        draw_score(score=score.score())
+        # Pass the show_score variable to the draw_score function
+        draw_score(score=score.score(), show_score=show_score)
         pygame.display.flip()
 
     if not running:
